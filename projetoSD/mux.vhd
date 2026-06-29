@@ -1,0 +1,34 @@
+library ieee;
+
+use ieee.std_logic_1164.all;
+
+use ieee.std_logic_unsigned.all;
+
+
+
+entity mux is
+
+port (
+
+seletor: in std_logic;
+
+a,b: in std_logic_vector(4 downto 0);
+
+s: out std_logic_vector(4 downto 0)
+
+);
+
+end mux;
+
+
+
+ARCHITECTURE arc of mux is
+
+begin
+
+s<= a when seletor = '0' else
+
+b;
+
+end arc;
+

@@ -1,0 +1,92 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY calculadora IS
+PORT (
+    A, B : IN std_logic_vector(4 downto 0);
+    sel  : IN std_logic;
+    
+    resultado, sinalresultado, DA, DB, sinalA, sinalB : OUT std_logic_vector(6 downto 0)
+);
+END calculadora;
+
+ARCHITECTURE arc OF calculadora IS
+
+    COMPONENT mux
+    PORT (
+        seletor: IN std_logic;
+        a,b: IN std_logic_vector(4 downto 0);
+        s: OUT std_logic_vector(4 downto 0)
+    );
+    END COMPONENT;
+
+    COMPONENT magnitude
+    PORT (
+        num: IN std_logic_vector(4 downto 0);
+        sinal: OUT std_logic;
+        s: OUT std_logic_vector(4 downto 0)
+    );
+    END COMPONENT;
+
+    COMPONENT somador5
+    PORT (
+        x,y: IN std_logic_vector(4 downto 0);
+        z: OUT std_logic_vector(4 downto 0)
+    );
+    END COMPONENT;
+
+    COMPONENT comp2
+    PORT (
+        num  : IN std_logic_vector(4 downto 0);
+        comp : OUT std_logic_vector(4 downto 0)
+    );
+    END COMPONENT;
+
+    COMPONENT decod
+    PORT (
+        a: IN std_logic_vector(3 downto 0);
+        s: OUT std_logic_vector(6 downto 0)
+    );
+    END COMPONENT;
+
+    COMPONENT decod_sinal
+    PORT (
+        ent: IN std_logic;
+        s: OUT std_logic_vector(6 downto 0)
+    );
+    END COMPONENT;
+
+    SIGNAL MagA, MagB, Soma, Subt, MagS, Muxs, B_comp: std_logic_vector(4 downto 0);
+    SIGNAL SiA, SiB, SiS: std_logic;
+    SIGNAL RS, RSiS, RMa, RMb, RSA, RSB: std_logic_vector(6 downto 0);
+
+BEGIN
+
+    i1: somador5 port map (A, B, Soma);
+    
+    i2_comp: comp2 port map (B, B_comp);
+    i2_sub: somador5 port map (A, B_comp, Subt);
+
+    i3: mux port map (sel, Soma, Subt, Muxs);
+
+    i4: magnitude port map (Muxs, SiS, MagS);
+    i5: magnitude port map (A, SiA, MagA);
+    i6: magnitude port map (B, SiB, MagB);
+
+    i7: decod port map (MagS(3 downto 0), RS);
+    i8: decod_sinal port map (SiS, RSiS);
+    
+    i9: decod port map (MagA(3 downto 0), RMa);
+    i10: decod port map (MagB(3 downto 0), RMb);
+    
+    i11: decod_sinal port map (SiA, RSA);
+    i12: decod_sinal port map (SiB, RSB);
+
+    resultado <= RS;
+    sinalresultado <= RSiS;
+    DA <= RMa;
+    DB <= RMb;
+    sinalA <= RSA;
+    sinalB <= RSB;
+
+END arc;

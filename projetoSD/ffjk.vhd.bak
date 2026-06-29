@@ -1,0 +1,41 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY ffjk IS
+PORT (
+    CLH, clr, pr, load, J, K : IN std_logic_vector(4 downto 0);
+    Q  : OUT std_logic_vector;
+    
+);
+END ffjk;
+
+ARCHITECTURE arc OF ffjk IS
+
+signal saidq >: std_logic;
+
+begin
+	process( CLH, clr, pr)
+		begin
+			if (clr = '0') then
+				saindaq<='0';
+			elsif (pr = '0') then
+				saindaq<='1';
+			elsif (rising_edge(clk)) then
+				if (load = '1') then
+					if (J = '0' and K='0') then
+						saindaq<=saindaq;
+					elsif (J = '0' and K='1') then
+						saindaq<='0';
+					elsif (J = '1' and K='0') then
+						saindaq<='1';
+					elsif (J = '1' and K='1') then
+						saindaq<= not saindaq;
+					end if;
+				end if;
+			end if;
+	end process;
+	
+	q <=saidaq
+		
+end arc;
+				

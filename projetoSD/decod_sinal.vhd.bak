@@ -1,0 +1,14 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity decod_sinal is
+    port (
+        ent: in std_logic;
+        s: out std_logic_vector(6 downto 0)
+    );
+end decod_sinal;
+
+architecture arc of decod_sinal is
+begin
+    s <= "1111111" when ent = '0' else "0111111";
+end arc;

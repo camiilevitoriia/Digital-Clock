@@ -1,0 +1,69 @@
+|circ_contador_assincrono
+clk => divisor_frequencia:i0.clkin
+clr => contador_assincrono:i1.clr
+Q1[0] <= contador_assincrono:i1.Q1[0]
+Q1[1] <= contador_assincrono:i1.Q1[1]
+Q1[2] <= contador_assincrono:i1.Q1[2]
+
+
+|circ_contador_assincrono|divisor_frequencia:i0
+clkin => novoclok.CLK
+clkin => contador[0].CLK
+clkin => contador[1].CLK
+clkin => contador[2].CLK
+clkin => contador[3].CLK
+clkin => contador[4].CLK
+clkin => contador[5].CLK
+clkin => contador[6].CLK
+clkin => contador[7].CLK
+clkin => contador[8].CLK
+clkin => contador[9].CLK
+clkin => contador[10].CLK
+clkin => contador[11].CLK
+clkin => contador[12].CLK
+clkin => contador[13].CLK
+clkin => contador[14].CLK
+clkin => contador[15].CLK
+clkin => contador[16].CLK
+clkin => contador[17].CLK
+clkin => contador[18].CLK
+clkin => contador[19].CLK
+clkin => contador[20].CLK
+clkin => contador[21].CLK
+clkin => contador[22].CLK
+clkin => contador[23].CLK
+clkin => contador[24].CLK
+clkout <= novoclok.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circ_contador_assincrono|contador_assincrono:i1
+clk => fft:i0.clk
+clr => fft:i0.clr
+clr => fft:i1.clr
+clr => fft:i2.clr
+Q1[0] <= fft:i0.Q
+Q1[1] <= fft:i1.Q
+Q1[2] <= fft:i2.Q
+
+
+|circ_contador_assincrono|contador_assincrono:i1|fft:i0
+clk => saidaq.CLK
+clr => saidaq.ACLR
+t => saidaq.ENA
+Q <= saidaq.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circ_contador_assincrono|contador_assincrono:i1|fft:i1
+clk => saidaq.CLK
+clr => saidaq.ACLR
+t => saidaq.ENA
+Q <= saidaq.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circ_contador_assincrono|contador_assincrono:i1|fft:i2
+clk => saidaq.CLK
+clr => saidaq.ACLR
+t => saidaq.ENA
+Q <= saidaq.DB_MAX_OUTPUT_PORT_TYPE
+
+

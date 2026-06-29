@@ -1,0 +1,9 @@
+USE ieee.std_logic_1164.all;
+
+ENTITY contador_assincrono IS
+PORT (
+    clk, clr, t: IN std_logic;
+    Q  : OUT std_logic
+    
+);
+end fft
